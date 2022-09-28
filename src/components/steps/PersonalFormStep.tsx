@@ -1,12 +1,15 @@
 import React from "react";
-import FormPageButton from "./FormPageButton";
+import FormPageButton from "../FormPageButton";
+import Navigation from "../Navigation";
 
 export default function PersonalFormStep({
   register,
   errors,
   page,
   handleNextPage,
+  handlePrevPage,
   trigger,
+  maxPages,
 }: any) {
   return (
     <div>
@@ -19,11 +22,12 @@ export default function PersonalFormStep({
         })}
       />
       {errors.personal && <span>This field is required</span>}
-      <FormPageButton
-        currentPage={page}
-        nextPage={handleNextPage}
-        fieldCheck={["personal"]}
+      <Navigation
+        page={page}
+        handleNextPage={handleNextPage}
+        handlePrevPage={handlePrevPage}
         trigger={trigger}
+        maxPages={maxPages}
       />
     </div>
   );

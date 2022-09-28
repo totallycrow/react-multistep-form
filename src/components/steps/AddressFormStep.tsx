@@ -1,6 +1,7 @@
 import React from "react";
-import FormPageButton from "./FormPageButton";
-import { IFormProps, IProps } from "./Form";
+import FormPageButton from "../FormPageButton";
+import { IFormProps, IProps } from "../Form";
+import Navigation from "../Navigation";
 
 export default function AddressFormStep({
   register,
@@ -9,6 +10,7 @@ export default function AddressFormStep({
   handleNextPage,
   handlePrevPage,
   trigger,
+  maxPages,
 }: IProps) {
   console.log(register);
   console.log(trigger);
@@ -25,17 +27,14 @@ export default function AddressFormStep({
       {/* ??? REACT-HOOK-FORM ERRORS? DYNAMICALLY ASSIGNED PROPERTIES? */}
       {/* @ts-ignore */}
       {errors.address && <span>This field is required</span>}
+      <div></div>
 
-      <FormPageButton
-        currentPage={page}
-        nextPage={handleNextPage}
-        fieldCheck={"address"}
+      <Navigation
+        page={page}
+        handleNextPage={handleNextPage}
+        handlePrevPage={handlePrevPage}
         trigger={trigger}
-      />
-      <FormPageButton
-        currentPage={page}
-        nextPage={handlePrevPage}
-        direction="back"
+        maxPages={maxPages}
       />
     </div>
   );

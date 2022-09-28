@@ -1,8 +1,8 @@
 import React from "react";
-import PersonalFormStep from "./PersonalFormStep";
-import EmailFormStep from "./EmailFormStep";
-import AddressFormStep from "./AddressFormStep";
-import ConfirmSubmitFormStep from "./ConfirmSubmitFormStep";
+import PersonalFormStep from "./steps/PersonalFormStep";
+import EmailFormStep from "./steps/EmailFormStep";
+import AddressFormStep from "./steps/AddressFormStep";
+import ConfirmSubmitFormStep from "./steps/ConfirmSubmitFormStep";
 
 export interface IProps {
   page: number;
@@ -15,6 +15,7 @@ export interface IProps {
   getValues: Function;
   onSubmit: Function;
   trigger: Function;
+  maxPages: number;
 }
 
 export interface IFormProps {
@@ -22,9 +23,7 @@ export interface IFormProps {
 }
 
 export default function Form({ formProps }: IFormProps) {
-  console.log(formProps);
   const currentPage = formProps.page;
-  console.log("Form state received", currentPage);
 
   switch (currentPage) {
     case 0:

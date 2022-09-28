@@ -1,5 +1,6 @@
 import React from "react";
-import FormPageButton from "./FormPageButton";
+import FormPageButton from "../FormPageButton";
+import Navigation from "../Navigation";
 
 export default function ConfirmSubmitFormStep({
   register,
@@ -9,6 +10,8 @@ export default function ConfirmSubmitFormStep({
   getValues,
   onSubmit,
   handlePrevPage,
+  trigger,
+  maxPages,
 }: any) {
   const formData = getValues();
   console.log(formData);
@@ -19,12 +22,13 @@ export default function ConfirmSubmitFormStep({
         <div>Personal: {formData.personal}</div>
         <div>email: {formData.email}</div>
       </div>
-      <FormPageButton
-        currentPage={page}
-        nextPage={handlePrevPage}
-        direction="back"
+      <Navigation
+        page={page}
+        prevPage={handlePrevPage}
+        handlePrevPage={handlePrevPage}
+        trigger={trigger}
+        maxPages={maxPages}
       />
-      <button type="submit">Submit</button>
     </div>
   );
 }

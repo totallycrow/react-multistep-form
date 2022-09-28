@@ -1,5 +1,6 @@
 import React from "react";
-import FormPageButton from "./FormPageButton";
+import FormPageButton from "../FormPageButton";
+import Navigation from "../Navigation";
 
 export default function EmailFormStep({
   register,
@@ -8,6 +9,8 @@ export default function EmailFormStep({
   handleNextPage,
   handlePrevPage,
   getValues,
+  trigger,
+  maxPages,
 }: any) {
   console.log(getValues());
   return (
@@ -15,17 +18,18 @@ export default function EmailFormStep({
       <input
         defaultValue="Enter Your Email"
         {...register("email", {
-          pattern: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/i,
+          // pattern: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/i,
           required: true,
           maxLength: 20,
         })}
       />
       {errors.email && <span>This field is required</span>}
-      <FormPageButton currentPage={page} nextPage={handleNextPage} />
-      <FormPageButton
-        currentPage={page}
-        nextPage={handlePrevPage}
-        direction="back"
+      <Navigation
+        page={page}
+        handleNextPage={handleNextPage}
+        handlePrevPage={handlePrevPage}
+        trigger={trigger}
+        maxPages={maxPages}
       />
     </div>
   );

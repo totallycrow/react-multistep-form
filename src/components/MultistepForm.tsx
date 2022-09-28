@@ -1,8 +1,6 @@
 import { useCallback, useState } from "react";
-import { useForm, SubmitHandler, FieldErrors } from "react-hook-form";
-import PersonalFormStep from "./PersonalFormStep";
-import EmailFormStep from "./EmailFormStep";
-import AddressFormStep from "./AddressFormStep";
+import { useForm, SubmitHandler } from "react-hook-form";
+
 import Form from "./Form";
 
 type Inputs = {
@@ -23,34 +21,37 @@ export default function MultistepForm() {
     trigger,
   } = useForm<Inputs>();
 
-  console.log(trigger);
-
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
-    // alert("Success");
-    console.log(data);
-    console.log("ERRORS", errors);
-    // resetPage();
-    // reset();
-  };
-
   const MAX_FORM_STEPS = 4;
 
   //   PAGE HANDLERS
-  const handleNextPage = useCallback((pageNumber: number) => {
-    if (pageNumber === MAX_FORM_STEPS - 1) return;
+  const handleNextPage = useCallback(
+    async (pageNumber: number, inputNames?: Array<String>) => {
+      if (pageNumber === MAX_FORM_STEPS - 1) return;
 
-    setPage((prev) => prev + 1);
-  }, []);
+      // @ts-ignore
+      const fieldStatus = await trigger(inputNames);
+
+      if (fieldStatus) setPage((prev) => prev + 1);
+    },
+    [trigger]
+  );
 
   const handlePrevPage = useCallback((pageNumber: number) => {
     if (pageNumber === 0) return;
+    console.log("test from back button");
     setPage((prev) => prev - 1);
   }, []);
-
   const resetPage = useCallback(() => setPage(0), []);
+
+  const onSubmit: SubmitHandler<Inputs> = useCallback(() => {
+    alert("Success");
+    resetPage();
+    reset();
+  }, []);
 
   //   ABOVE: Instead of many useCallbacks -> useEffect with no dependencies?
 
+  // PROPS
   const formProps = {
     page: page,
     register: register,
@@ -62,6 +63,7 @@ export default function MultistepForm() {
     getValues: getValues,
     onSubmit: onSubmit,
     trigger: trigger,
+    maxPages: MAX_FORM_STEPS,
   };
 
   return (
