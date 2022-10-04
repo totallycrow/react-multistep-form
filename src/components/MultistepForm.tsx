@@ -4,13 +4,21 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import Form from "./Form";
 
 type Inputs = {
-  example: string;
-  exampleRequired: string;
+  personal: string;
+  email: string;
 };
 
-export default function MultistepForm() {
-  const [page, setPage] = useState(0);
+// redux + redux-toolkit
 
+// recoil
+// XState
+// react-query
+// useSwr
+
+// jotai, zustand
+
+const MAX_FORM_STEPS = 4;
+export default function MultistepForm() {
   const {
     register,
     handleSubmit,
@@ -19,9 +27,10 @@ export default function MultistepForm() {
     reset,
     formState: { errors },
     trigger,
-  } = useForm<Inputs>();
+  } = useForm<Inputs>({ defaultValues: { personal: "", email: "" } });
 
-  const MAX_FORM_STEPS = 4;
+  // useMultistepControler
+  const [page, setPage] = useState(0);
 
   //   PAGE HANDLERS
   const handleNextPage = useCallback(
@@ -49,10 +58,8 @@ export default function MultistepForm() {
     reset();
   }, []);
 
-  //   ABOVE: Instead of many useCallbacks -> useEffect with no dependencies?
-
   // PROPS
-  const formProps = {
+  const formProps: IFormProps = {
     page: page,
     register: register,
     handleSubmit: handleSubmit,

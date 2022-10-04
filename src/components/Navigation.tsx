@@ -10,7 +10,23 @@ export default function Navigation({
   maxPages,
   onSubmit,
 }: any) {
-  if (page > 0 && page < maxPages - 1)
+  const isInitialIndex = page === 0;
+
+  if (isInitialIndex)
+    return (
+      <div>
+        <FormPageButton
+          currentPage={page}
+          nextPage={handleNextPage}
+          fieldCheck={fieldCheck}
+          trigger={trigger}
+        />
+      </div>
+    );
+
+  const isIndexInBetween = page > 0 && page < maxPages - 1;
+
+  if (isIndexInBetween)
     return (
       <div>
         <FormPageButton
@@ -26,29 +42,17 @@ export default function Navigation({
         />
       </div>
     );
-  else if (page === 0)
-    return (
-      <div>
-        <FormPageButton
-          currentPage={page}
-          nextPage={handleNextPage}
-          fieldCheck={fieldCheck}
-          trigger={trigger}
-        />
-      </div>
-    );
-  else
-    return (
-      <div>
-        {" "}
-        <FormPageButton
-          currentPage={page}
-          prevPage={handlePrevPage}
-          direction="back"
-        />
-        <button type="submit" onSubmit={onSubmit}>
-          Submit
-        </button>
-      </div>
-    );
+
+  return (
+    <div>
+      <FormPageButton
+        currentPage={page}
+        prevPage={handlePrevPage}
+        direction="back"
+      />
+      <button type="submit" onSubmit={onSubmit}>
+        Submit
+      </button>
+    </div>
+  );
 }
