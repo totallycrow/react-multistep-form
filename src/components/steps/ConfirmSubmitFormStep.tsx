@@ -3,17 +3,11 @@ import FormPageButton from "../FormPageButton";
 import Navigation from "../Navigation";
 
 export default function ConfirmSubmitFormStep({
-  register,
-  errors,
-  page,
-  handleNextPage,
-  getValues,
-  onSubmit,
-  handlePrevPage,
-  trigger,
-  maxPages,
+  formComponentProps,
+  navigationProps,
 }: any) {
-  const formData = getValues();
+  console.log(formComponentProps);
+  const formData = formComponentProps.getValues();
   console.log(formData);
 
   return (
@@ -22,13 +16,7 @@ export default function ConfirmSubmitFormStep({
         <div>Personal: {formData.personal}</div>
         <div>email: {formData.email}</div>
       </div>
-      <Navigation
-        page={page}
-        prevPage={handlePrevPage}
-        handlePrevPage={handlePrevPage}
-        trigger={trigger}
-        maxPages={maxPages}
-      />
+      <Navigation {...navigationProps} />
     </div>
   );
 }

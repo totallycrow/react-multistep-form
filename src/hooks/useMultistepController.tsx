@@ -1,7 +1,12 @@
 import React, { useCallback, useState } from "react";
+import { FieldValues, SubmitHandler } from "react-hook-form";
 import { IProps } from "../components/Form";
 
-export default function useMultistepController(steps: number, reset: Function) {
+export default function useMultistepController(
+  steps: number,
+  reset: Function,
+  trigger: Function
+): [number, Function, Function, SubmitHandler<FieldValues>] {
   // useMultistepControler
   const [page, setPage] = useState(0);
   const MAX_FORM_STEPS = steps;
@@ -26,12 +31,10 @@ export default function useMultistepController(steps: number, reset: Function) {
   }, []);
   const resetPage = useCallback(() => setPage(0), []);
 
-  const onSubmit: Function = useCallback(() => {
-    return function handleSubmit() {
-      alert("Success");
-      resetPage();
-      reset();
-    };
+  const onSubmit = useCallback(() => {
+    alert("Success");
+    resetPage();
+    reset();
   }, [reset, resetPage]);
 
   return [page, handleNextPage, handlePrevPage, onSubmit];

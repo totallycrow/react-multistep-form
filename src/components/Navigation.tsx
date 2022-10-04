@@ -1,16 +1,21 @@
-import React from "react";
+import React, { useContext } from "react";
 import FormPageButton from "./FormPageButton";
+import { MultiStepContext } from "./MultistepForm";
 
-export default function Navigation({
-  page,
-  handleNextPage,
-  trigger,
-  handlePrevPage,
-  fieldCheck,
-  maxPages,
-  onSubmit,
-}: any) {
+export default function Navigation() {
+  const {
+    page,
+    handleNextPage,
+    trigger,
+    handlePrevPage,
+
+    maxPages,
+    onSubmit,
+  } = useContext(MultiStepContext);
+
   const isInitialIndex = page === 0;
+
+  console.log(trigger);
 
   if (isInitialIndex)
     return (
@@ -18,13 +23,13 @@ export default function Navigation({
         <FormPageButton
           currentPage={page}
           nextPage={handleNextPage}
-          fieldCheck={fieldCheck}
           trigger={trigger}
         />
       </div>
     );
 
   const isIndexInBetween = page > 0 && page < maxPages - 1;
+  console.log(onSubmit);
 
   if (isIndexInBetween)
     return (
@@ -32,7 +37,6 @@ export default function Navigation({
         <FormPageButton
           currentPage={page}
           nextPage={handleNextPage}
-          fieldCheck={fieldCheck}
           trigger={trigger}
         />
         <FormPageButton

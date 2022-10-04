@@ -4,16 +4,11 @@ import { IFormProps, IProps } from "../Form";
 import Navigation from "../Navigation";
 
 export default function AddressFormStep({
-  register,
-  errors,
-  page,
-  handleNextPage,
-  handlePrevPage,
-  trigger,
-  maxPages,
-}: IProps) {
-  console.log(register);
-  console.log(trigger);
+  formComponentProps,
+  navigationProps,
+}: any) {
+  const register = formComponentProps.register;
+  const errors = formComponentProps.errors;
   return (
     <div>
       <input
@@ -29,13 +24,7 @@ export default function AddressFormStep({
       {errors.address && <span>This field is required</span>}
       <div></div>
 
-      <Navigation
-        page={page}
-        handleNextPage={handleNextPage}
-        handlePrevPage={handlePrevPage}
-        trigger={trigger}
-        maxPages={maxPages}
-      />
+      <Navigation {...navigationProps} />
     </div>
   );
 }

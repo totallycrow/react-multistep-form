@@ -5,7 +5,6 @@ export default function FormPageButton({
   nextPage,
   prevPage,
   direction,
-  fieldCheck,
 }: any) {
   if (direction === "back")
     return <button onClick={() => prevPage(currentPage)}>Back</button>;

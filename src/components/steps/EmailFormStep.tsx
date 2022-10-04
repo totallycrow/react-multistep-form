@@ -3,16 +3,12 @@ import FormPageButton from "../FormPageButton";
 import Navigation from "../Navigation";
 
 export default function EmailFormStep({
-  register,
-  errors,
-  page,
-  handleNextPage,
-  handlePrevPage,
-  getValues,
-  trigger,
-  maxPages,
+  formComponentProps,
+  navigationProps,
 }: any) {
-  console.log(getValues());
+  const register = formComponentProps.register;
+  const errors = formComponentProps.errors;
+
   return (
     <div>
       <input
@@ -24,13 +20,7 @@ export default function EmailFormStep({
         })}
       />
       {errors.email && <span>This field is required</span>}
-      <Navigation
-        page={page}
-        handleNextPage={handleNextPage}
-        handlePrevPage={handlePrevPage}
-        trigger={trigger}
-        maxPages={maxPages}
-      />
+      <Navigation {...navigationProps} />
     </div>
   );
 }

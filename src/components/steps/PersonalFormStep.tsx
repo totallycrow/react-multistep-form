@@ -1,16 +1,16 @@
 import React from "react";
 import FormPageButton from "../FormPageButton";
 import Navigation from "../Navigation";
+import IFormComponentProps from "../Form";
+import IStepsProps from "../Form";
 
 export default function PersonalFormStep({
-  register,
-  errors,
-  page,
-  handleNextPage,
-  handlePrevPage,
-  trigger,
-  maxPages,
+  formComponentProps,
+  navigationProps,
 }: any) {
+  const register = formComponentProps.register;
+  const errors = formComponentProps.errors;
+
   return (
     <div>
       <input
@@ -22,13 +22,7 @@ export default function PersonalFormStep({
         })}
       />
       {errors.personal && <span>This field is required</span>}
-      <Navigation
-        page={page}
-        handleNextPage={handleNextPage}
-        handlePrevPage={handlePrevPage}
-        trigger={trigger}
-        maxPages={maxPages}
-      />
+      <Navigation {...navigationProps} />
     </div>
   );
 }

@@ -2,6 +2,7 @@ import { useCallback, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import useMultistepController from "../hooks/useMultistepController";
 import { IProps } from "./Form";
+import { createContext, useContext } from "react";
 
 import Form from "./Form";
 
@@ -12,6 +13,7 @@ import Form from "./Form";
 // useSwr
 // jotai, zustand
 
+export const MultiStepContext = createContext({} as IProps);
 const MAX_FORM_STEPS = 4;
 export default function MultistepForm() {
   const {
@@ -25,11 +27,10 @@ export default function MultistepForm() {
   } = useForm();
 
   const [page, handleNextPage, handlePrevPage, onSubmit] =
-    useMultistepController(MAX_FORM_STEPS, reset);
+    useMultistepController(MAX_FORM_STEPS, reset, trigger);
 
   // PROPS
   const formProps: IProps = {
-    // where is "number | function" coming from??
     page: page,
     register: register,
     handleSubmit: handleSubmit,
@@ -45,7 +46,9 @@ export default function MultistepForm() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Form formProps={formProps} />
+      <MultiStepContext.Provider value={formProps}>
+        <Form formProps={formProps} />
+      </MultiStepContext.Provider>
     </form>
   );
 }
